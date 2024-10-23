@@ -1,6 +1,4 @@
 #include "Helper.hpp"
-#include "GridItem.hpp"
-#include "Interactable.hpp"
 #include "Goal.hpp"
 #include "Obstacle.hpp"
 #include "Robot.hpp"
