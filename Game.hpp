@@ -95,14 +95,14 @@ public:
             for (int i = 0; i < dy; ++i) {
                 if (!_player.move(0, 1)) break;
                 if (_goal.interact(&_player)) {
-                    _state == WIN;
+                    _state = WIN;
                     break;
                 }
                 for (size_t i = 0; i < _obstacles.size(); ++i) {
                     if (!_obstacles[i]->interact(&_player)) break;
                 }
                 if (!_player.getHealth()) {
-                    _state == LOSE;
+                    _state = LOSE;
                     break;
                 }
             }
