@@ -121,18 +121,18 @@ public:
     }
 
     void printGrid() {
-        for (int i = 0; i < _width; ++i) {
-            for (int j = 0; j < _height; ++j) {
+        for (int i = 0; i < _height; ++i) {
+            for (int j = 0; j < _width; ++j) {
                 bool is_taken = false;
-                if (_player.getCoordinates() == pair<int, int>({i, j})) {
+                if (_player.getCoordinates() == pair<int, int>({j, i})) {
                     cout << "P";
                     continue;
-                } else if (_goal.getCoordinates() == pair<int, int>({i, j})) {
+                } else if (_goal.getCoordinates() == pair<int, int>({j, i})) {
                     cout << "G";
                     continue;
                 }
-                for (size_t i = 0; i < _obstacles.size(); ++i) {
-                    if (_obstacles[i].getCoordinates() == pair<int, int>({i, j})) {
+                for (size_t k = 0; k < _obstacles.size(); ++k) {
+                    if (_obstacles[k].getCoordinates() == pair<int, int>({j, i})) {
                         cout << "O";
                         is_taken = true;
                         break;
