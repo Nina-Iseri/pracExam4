@@ -20,7 +20,7 @@ class Game {
     int _height;
     Robot _player;
     Goal _goal;
-    vector<Obstacle> _obstacles;
+    vector<Obstacle*> _obstacles;
     GameState _state;
     
 public:
@@ -31,8 +31,14 @@ public:
             if (obstacleCoordinates[i] != _player.getCoordinates() && obstacleCoordinates[i] != _goal.getCoordinates()) {
                 int x = obstacleCoordinates[i].first;
                 int y = obstacleCoordinates[i].second;
-                _obstacles.push_back(Obstacle(x, y, width, height));
+                Obstacle* new_obstacle = new Obstacle(x, y, width, height);
+                _obstacles.push_back(new_obstacle);
             }
+        }
+    }
+    ~Game() {
+        for (size_t i = 0; i < _obstacles.size(); ++i) {
+            delete _obstacles[i];
         }
     }
 
@@ -59,7 +65,7 @@ public:
                     break;
                 }
                 for (size_t i = 0; i < _obstacles.size(); ++i) {
-                    if (!_obstacles[i].interact(&_player)) break;
+                    if (!_obstacles[i]->interact(&_player)) break;
                 }
                 if (!_player.getHealth()) {
                     _state == LOSE;
@@ -74,7 +80,7 @@ public:
                     break;
                 }
                 for (size_t i = 0; i < _obstacles.size(); ++i) {
-                    if (!_obstacles[i].interact(&_player)) break;
+                    if (!_obstacles[i]->interact(&_player)) break;
                 }
                 if (!_player.getHealth()) {
                     _state == LOSE;
@@ -93,7 +99,7 @@ public:
                     break;
                 }
                 for (size_t i = 0; i < _obstacles.size(); ++i) {
-                    if (!_obstacles[i].interact(&_player)) break;
+                    if (!_obstacles[i]->interact(&_player)) break;
                 }
                 if (!_player.getHealth()) {
                     _state == LOSE;
@@ -108,7 +114,7 @@ public:
                     break;
                 }
                 for (size_t i = 0; i < _obstacles.size(); ++i) {
-                    if (!_obstacles[i].interact(&_player)) break;
+                    if (!_obstacles[i]->interact(&_player)) break;
                 }
                 if (!_player.getHealth()) {
                     _state == LOSE;
@@ -132,7 +138,7 @@ public:
                     continue;
                 }
                 for (size_t k = 0; k < _obstacles.size(); ++k) {
-                    if (_obstacles[k].getCoordinates() == pair<int, int>({j, i})) {
+                    if (_obstacles[k]->getCoordinates() == pair<int, int>({j, i})) {
                         cout << "O";
                         is_taken = true;
                         break;
